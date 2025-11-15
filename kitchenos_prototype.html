@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KitchenOS - Your Smart Kitchen Ecosystem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            animation: fadeInUp 1s;
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+        }
+
+        nav li {
+            margin: 0 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #764ba2;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #667eea;
+        }
+
+        /* Problem Section */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-card h3 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        /* Price Configurator */
+        .configurator {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+
+        .hardware-options, .app-options {
+            margin: 30px 0;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+        }
+
+        .option-card.selected {
+            border-color: #667eea;
+            background: #e8eaf6;
+        }
+
+        .option-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .price-tag {
+            font-size: 1.5em;
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .total-price {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .total-price h3 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* App Store */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .app-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .app-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .app-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .app-price {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .app-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        /* Survey */
+        .survey-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 30px auto;
+        }
+
+        .form-group {
+            margin: 25px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Results Display */
+        .results {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-box {
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            background: #e8eaf6;
+            border-radius: 10px;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🍳 KitchenOS</h1>
+            <p>Your Open Smart Kitchen Ecosystem - Affordable, Customizable, Powerful</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#configurator">Build Your Kitchen</a></li>
+            <li><a href="#appstore">App Store</a></li>
+            <li><a href="#survey">Share Your Opinion</a></li>
+        </ul>
+    </nav>
+
+    <section id="problem">
+        <div class="container">
+            <h2>Why Current Smart Kitchens Fail</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>💸 Too Expensive</h3>
+                    <p>Smart appliances cost €500-2000+ each. Young homeowners can't afford a complete smart kitchen setup.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>🔒 Locked Ecosystem</h3>
+                    <p>Each brand forces you into their closed system. No flexibility, no choice.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>⚙️ Limited Features</h3>
+                    <p>Fixed functions that don't match your actual cooking and cleaning needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="solution" style="background: white;">
+        <div class="container">
+            <h2>Our Solution: KitchenOS</h2>
+            <p style="text-align: center; font-size: 1.2em; max-width: 800px; margin: 0 auto;">
+                An open ecosystem with <strong>affordable hardware</strong> at different price points and a rich <strong>"App Store"</strong> 
+                where you choose only the functions you need. Pay less upfront, customize forever.
+            </p>
+        </div>
+    </section>
+
+    <section id="configurator">
+        <div class="container">
+            <h2>⚙️ Build Your Perfect Kitchen</h2>
+            <div class="configurator">
+                <h3>Step 1: Choose Your Hardware</h3>
+                <div class="hardware-options">
+                    <div class="option-card" onclick="selectHardware(this, 199)">
+                        <h4>Basic Smart Hub</h4>
+                        <p>Entry-level controller for simple cooking tasks</p>
+                        <p class="price-tag">€199</p>
+                    </div>
+                    <div class="option-card" onclick="selectHardware(this, 399)">
+                        <h4>Pro Smart Hub</h4>
+                        <p>Advanced controller with multi-device support</p>
+                        <p class="price-tag">€399</p>
+                    </div>
+                    <div class="option-card" onclick="selectHardware(this, 599)">
+                        <h4>Premium All-in-One</h4>
+                        <p>Complete system with integrated appliances</p>
+                        <p class="price-tag">€599</p>
+                    </div>
+                </div>
+
+                <h3>Step 2: Add Apps (€1-€5 each)</h3>
+                <div class="app-options">
+                    <div class="option-card" onclick="selectApp(this, 2.99)">
+                        <h4>🍝 Pasta Perfect</h4>
+                        <p>Professional pasta cooking with 20+ recipes</p>
+                        <p class="price-tag">€2.99</p>
+                    </div>
+                    <div class="option-card" onclick="selectApp(this, 4.99)">
+                        <h4>🧹 Deep Clean Pro</h4>
+                        <p>Advanced cleaning schedules and detergent optimization</p>
+                        <p class="price-tag">€4.99</p>
+                    </div>
+                    <div class="option-card" onclick="selectApp(this, 1.99)">
+                        <h4>☕ Morning Brew</h4>
+                        <p>Wake up to perfect coffee every time</p>
+                        <p class="price-tag">€1.99</p>
+                    </div>
+                </div>
+
+                <div class="total-price">
+                    <h3>Your Total Investment</h3>
+                    <p style="font-size: 3em; margin: 20px 0;" id="totalPrice">€0</p>
+                    <button onclick="recordConfiguration()">I'm Interested in This Setup!</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="appstore" style="background: white;">
+        <div class="container">
+            <h2>🏪 KitchenOS App Store</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Specialized apps created by developers worldwide - only pay for what you need</p>
+            <div class="app-grid">
+                <div class="app-card" onclick="trackAppClick('Sous Vide Master')">
+                    <div class="app-icon">🥩</div>
+                    <h4>Sous Vide Master</h4>
+                    <p>Restaurant-quality precision cooking</p>
+                    <span class="app-category">Cooking</span>
+                    <p class="app-price">€3.99</p>
+                </div>
+                <div class="app-card" onclick="trackAppClick('Dishwasher AI')">
+                    <div class="app-icon">🍽️</div>
+                    <h4>Dishwasher AI</h4>
+                    <p>Smart load detection and eco mode</p>
+                    <span class="app-category">Cleaning</span>
+                    <p class="app-price">€2.49</p>
+                </div>
+                <div class="app-card" onclick="trackAppClick('Baking Master')">
+                    <div class="app-icon">🍰</div>
+                    <h4>Baking Master</h4>
+                    <p>Perfect bread, cakes, and pastries</p>
+                    <span class="app-category">Cooking</span>
+                    <p class="app-price">€4.49</p>
+                </div>
+                <div class="app-card" onclick="trackAppClick('Energy Optimizer')">
+                    <div class="app-icon">⚡</div>
+                    <h4>Energy Optimizer</h4>
+                    <p>Reduce electricity costs by 30%</p>
+                    <span class="app-category">Utility</span>
+                    <p class="app-price">€1.99</p>
+                </div>
+                <div class="app-card" onclick="trackAppClick('Meal Planner Pro')">
+                    <div class="app-icon">📅</div>
+                    <h4>Meal Planner Pro</h4>
+                    <p>Weekly meal planning with auto-cook</p>
+                    <span class="app-category">Cooking</span>
+                    <p class="app-price">€2.99</p>
+                </div>
+                <div class="app-card" onclick="trackAppClick('Stain Remover')">
+                    <div class="app-icon">✨</div>
+                    <h4>Stain Remover</h4>
+                    <p>Specialized cycles for tough stains</p>
+                    <span class="app-category">Cleaning</span>
+                    <p class="app-price">€3.49</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="survey">
+        <div class="container">
+            <h2>📋 Help Shape KitchenOS</h2>
+            <div class="survey-form">
+                <form onsubmit="submitSurvey(event)">
+                    <div class="form-group">
+                        <label>What is your age range?</label>
+                        <select required name="age">
+                            <option value="">Select...</option>
+                            <option value="18-25">18-25</option>
+                            <option value="26-35">26-35</option>
+                            <option value="36-45">36-45</option>
+                            <option value="45+">45+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>What's your biggest frustration with current kitchen appliances?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="frustration" value="price" required>
+                                <span>Too expensive</span>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="frustration" value="features" required>
+                                <span>Limited features</span>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="frustration" value="locked" required>
+                                <span>Locked ecosystem</span>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="frustration" value="complex" required>
+                                <span>Too complex to use</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>How much would you spend on smart kitchen hardware?</label>
+                        <select required name="hardware_budget">
+                            <option value="">Select...</option>
+                            <option value="<200">Under €200</option>
+                            <option value="200-400">€200-€400</option>
+                            <option value="400-600">€400-€600</option>
+                            <option value="600+">€600+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Would you pay €1-€5 for specialized cooking/cleaning apps?</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="app_willingness" value="yes" required>
+                                <span>Yes, definitely</span>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="app_willingness" value="maybe" required>
+                                <span>Maybe, depends on quality</span>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="app_willingness" value="no" required>
+                                <span>No, prefer one-time purchase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Which apps would you most likely purchase? (Select all that apply)</label>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                            <label><input type="checkbox" name="app_interest" value="cooking"> Professional Cooking</label>
+                            <label><input type="checkbox" name="app_interest" value="cleaning"> Smart Cleaning</label>
+                            <label><input type="checkbox" name="app_interest" value="energy"> Energy Saving</label>
+                            <label><input type="checkbox" name="app_interest" value="planning"> Meal Planning</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Any other thoughts or suggestions?</label>
+                        <textarea name="comments" rows="4" placeholder="Share your thoughts..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email (optional - to receive updates)</label>
+                        <input type="email" name="email" placeholder="your@email.com">
+                    </div>
+
+                    <button type="submit">Submit Feedback</button>
+                </form>
+            </div>
+
+            <div class="results" id="results" style="display: none;">
+                <h3 style="text-align: center; margin-bottom: 20px;">📊 Live Test Results</h3>
+                <div style="text-align: center;">
+                    <div class="stat-box">
+                        <div class="stat-number" id="totalResponses">0</div>
+                        <div>Total Responses</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="appWillingPercent">0%</div>
+                        <div>Willing to Pay for Apps</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="avgBudget">€0</div>
+                        <div>Avg Hardware Budget</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="priceComplaint">0%</div>
+                        <div>Price is Main Issue</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 KitchenOS - Prototype Test Website</p>
+            <p style="margin-top: 10px; opacity: 0.7;">This is a concept test. No actual products are for sale.</p>
+        </div>
+    </footer>
+
+    <script>
+        let testData = {
+            hardware: 0,
+            apps: [],
+            configurations: [],
+            surveys: [],
+            appClicks: {}
+        };
+
+        function selectHardware(element, price) {
+            document.querySelectorAll('.hardware-options .option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            testData.hardware = price;
+            updateTotal();
+        }
+
+        function selectApp(element, price) {
+            element.classList.toggle('selected');
+            const index = testData.apps.indexOf(price);
+            if (index > -1) {
+                testData.apps.splice(index, 1);
+            } else {
+                testData.apps.push(price);
+            }
+            updateTotal();
+        }
+
+        function updateTotal() {
+            const appTotal = testData.apps.reduce((sum, price) => sum + price, 0);
+            const total = testData.hardware + appTotal;
+            document.getElementById('totalPrice').textContent = '€' + total.toFixed(2);
+        }
+
+        function recordConfiguration() {
+            if (testData.hardware === 0) {
+                alert('Please select hardware first!');
+                return;
+            }
+            const config = {
+                hardware: testData.hardware,
+                apps: [...testData.apps],
+                total: testData.hardware + testData.apps.reduce((sum, price) => sum + price, 0),
+                timestamp: new Date().toISOString()
+            };
+            testData.configurations.push(config);
+            alert('Thank you! Your configuration has been recorded. Please scroll down to share more feedback in the survey.');
+            document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function trackAppClick(appName) {
+            if (!testData.appClicks[appName]) {
+                testData.appClicks[appName] = 0;
+            }
+            testData.appClicks[appName]++;
+        }
+
+        function submitSurvey(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const surveyResponse = {
+                age: formData.get('age'),
+                frustration: formData.get('frustration'),
+                hardware_budget: formData.get('hardware_budget'),
+                app_willingness: formData.get('app_willingness'),
+                app_interest: formData.getAll('app_interest'),
+                comments: formData.get('comments'),
+                email: formData.get('email'),
+                timestamp: new Date().toISOString()
+            };
+            testData.surveys.push(surveyResponse);
+            
+            event.target.reset();
+            alert('Thank you for your feedback! 🎉');
+            
+            updateResults();
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateResults() {
+            const total = testData.surveys.length;
+            document.getElementById('totalResponses').textContent = total;
+
+            if (total > 0) {
+                const willing = testData.surveys.filter(s => s.app_willingness === 'yes').length;
+                document.getElementById('appWillingPercent').textContent = Math.round((willing / total) * 100) + '%';
+
+                const priceComplaint = testData.surveys.filter(s => s.frustration === 'price').length;
+                document.getElementById('priceComplaint').textContent = Math.round((priceComplaint / total) * 100) + '%';
+
+                const budgets = testData.surveys.map(s => {
+                    const b = s.hardware_budget;
+                    if (b === '<200') return 150;
+                    if (b === '200-400') return 300;
+                    if (b === '400-600') return 500;
+                    if (b === '600+') return 700;
+                    return 0;
+                });
+                const avgBudget = budgets.reduce((a, b) => a + b, 0) / budgets.length;
+                document.getElementById('avgBudget').textContent = '€' + Math.round(avgBudget);
+            }
+        }
+
+        // Download test data
+        function downloadTestData() {
+            const dataStr = JSON.stringify(testData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'kitchenos_test_data.json';
+            link.click();
+        }
+
+        // Add download button at the end
+        window.addEventListener('load', () => {
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = '📥 Download Test Data';
+            downloadBtn.style.position = 'fixed';
+            downloadBtn.style.bottom = '20px';
+            downloadBtn.style.right = '20px';
+            downloadBtn.style.zIndex = '1000';
+            downloadBtn.onclick = downloadTestData;
+            document.body.appendChild(downloadBtn);
+        });
+    </script>
+</body>
+</html>
