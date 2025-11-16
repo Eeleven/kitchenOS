@@ -34,6 +34,74 @@
             text-align: center;
             padding: 0 10px;
         }
+
+        /* Solution slider */
+        .solution-slider {
+            margin: 40px auto 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 18px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+            background: #000;
+            max-width: 780px;
+            width: min(85%, 780px);
+        }
+
+        .solution-slider-track {
+            display: flex;
+            transition: transform 0.8s ease-in-out;
+            will-change: transform;
+        }
+
+        .solution-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .solution-slide img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 2848 / 1600;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.9);
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.55);
+            color: #fff;
+            border-radius: 10px;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .slider-dot.active,
+        .slider-dot:hover {
+            background: #fff;
+            border-color: #fff;
+        }
         /* Header */
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -601,6 +669,27 @@
                 An open ecosystem with <strong>affordable hardware</strong> at different price points and a rich <strong>"App Store"</strong> 
                 where you choose only the functions you need. Pay less upfront, customize forever.
             </p>
+            <div class="solution-slider" aria-label="KitchenOS experience gallery">
+                <div class="solution-slider-track">
+                    <div class="solution-slide">
+                        <img src="images/kit1.png" width="2848" height="1600" alt="Modern smart kitchen with ambient lighting">
+                        <div class="slide-caption">App Store experience: curate apps for cooking, cleaning, baking</div>
+                    </div>
+                    <div class="solution-slide">
+                        <img src="images/kit2.png" width="2848" height="1600" alt="Person using a tablet in a connected kitchen">
+                        <div class="slide-caption">A kitchen in the true sense of modernization</div>
+                    </div>
+                    <div class="solution-slide">
+                        <img src="images/kit3.png" width="2848" height="1600" alt="Family enjoying an open concept kitchen">
+                        <div class="slide-caption">Hybrid hardware hub orchestrating all KitchenOS devices</div>
+                    </div>
+                </div>
+                <div class="slider-dots" role="tablist">
+                    <button class="slider-dot active" type="button" aria-label="Show slide 1"></button>
+                    <button class="slider-dot" type="button" aria-label="Show slide 2"></button>
+                    <button class="slider-dot" type="button" aria-label="Show slide 3"></button>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1434,6 +1523,46 @@
             link.download = `kitchenos_summary_${timestamp}.txt`;
             link.click();
             showToast('📊 Report downloaded!');
+        }
+
+        document.addEventListener('DOMContentLoaded', initSolutionSlider);
+
+        function initSolutionSlider() {
+            const sliderTrack = document.querySelector('.solution-slider-track');
+            if (!sliderTrack) {
+                return;
+            }
+
+            const slides = Array.from(sliderTrack.querySelectorAll('.solution-slide'));
+            const dots = Array.from(document.querySelectorAll('.slider-dot'));
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+            let sliderTimer = setInterval(advanceSlide, 2000);
+
+            function showSlide(index) {
+                currentSlide = index;
+                sliderTrack.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, dotIndex) => {
+                    dot.classList.toggle('active', dotIndex === index);
+                });
+            }
+
+            function advanceSlide() {
+                const nextSlide = (currentSlide + 1) % totalSlides;
+                showSlide(nextSlide);
+            }
+
+            function restartTimer() {
+                clearInterval(sliderTimer);
+                sliderTimer = setInterval(advanceSlide, 2000);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    restartTimer();
+                });
+            });
         }
 
         function generateSummaryReport() {
