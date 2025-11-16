@@ -1,1 +1,1 @@
-# kitchenOS
+# KitchenOS Prototype
