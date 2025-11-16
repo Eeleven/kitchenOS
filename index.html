@@ -1167,26 +1167,78 @@
     </footer>
 
     <script>
-        let testData = {
-            sessions: {
-                startTime: new Date().toISOString(),
-                pageViews: 0,
-                uniqueVisitors: 0
-            },
-            hardware: null,
-            hardwareName: null,
-            selectedApps: [],
-            configurations: [],
-            surveys: [],
-            appClicks: {},
-            categoryClicks: { cooking: 0, cleaning: 0, baking: 0 },
-            userFlow: []
-        };
+        const STORAGE_KEY = 'kitchenosTestData';
+
+        function getDefaultTestData() {
+            return {
+                sessions: {
+                    startTime: new Date().toISOString(),
+                    pageViews: 0,
+                    uniqueVisitors: 0
+                },
+                hardware: null,
+                hardwareName: null,
+                selectedApps: [],
+                configurations: [],
+                surveys: [],
+                appClicks: {},
+                categoryClicks: { cooking: 0, cleaning: 0, baking: 0 },
+                userFlow: []
+            };
+        }
+
+        function normalizeTestData(data) {
+            const defaults = getDefaultTestData();
+            const safeData = data || {};
+            return {
+                ...defaults,
+                ...safeData,
+                sessions: {
+                    ...defaults.sessions,
+                    ...(safeData.sessions || {})
+                },
+                selectedApps: Array.isArray(safeData.selectedApps) ? safeData.selectedApps : [],
+                configurations: Array.isArray(safeData.configurations) ? safeData.configurations : [],
+                surveys: Array.isArray(safeData.surveys) ? safeData.surveys : [],
+                appClicks: { ...defaults.appClicks, ...(safeData.appClicks || {}) },
+                categoryClicks: { ...defaults.categoryClicks, ...(safeData.categoryClicks || {}) },
+                userFlow: Array.isArray(safeData.userFlow) ? safeData.userFlow : []
+            };
+        }
+
+        function loadTestData() {
+            if (typeof localStorage === 'undefined') {
+                return getDefaultTestData();
+            }
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return normalizeTestData(JSON.parse(saved));
+                }
+            } catch (error) {
+                console.error('Failed to load saved data:', error);
+            }
+            return getDefaultTestData();
+        }
+
+        function saveTestData() {
+            if (typeof localStorage === 'undefined') {
+                return;
+            }
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(testData));
+            } catch (error) {
+                console.error('Failed to save data:', error);
+            }
+        }
+
+        let testData = loadTestData();
 
         // Track page load
         window.addEventListener('load', () => {
             testData.sessions.pageViews++;
             testData.userFlow.push({ event: 'page_load', timestamp: new Date().toISOString() });
+            saveTestData();
         });
 
         // Toast notification function
@@ -1217,6 +1269,7 @@
                 price: price,
                 timestamp: new Date().toISOString() 
             });
+            saveTestData();
             updateTotal();
             showToast(`✓ ${name.charAt(0).toUpperCase() + name.slice(1)} bundle selected!`);
         }
@@ -1255,6 +1308,7 @@
                     timestamp: new Date().toISOString() 
                 });
             }
+            saveTestData();
             updateTotal();
         }
 
@@ -1290,6 +1344,7 @@
                 category: category,
                 timestamp: new Date().toISOString() 
             });
+            saveTestData();
             
             document.querySelectorAll('.category-apps').forEach(grid => {
                 const gridCategory = grid.getAttribute('data-category');
@@ -1324,6 +1379,7 @@
                 config: config,
                 timestamp: new Date().toISOString() 
             });
+            saveTestData();
             
             updateAnalytics();
             showToast('✅ Configuration saved!', 2000);
@@ -1351,6 +1407,7 @@
                 event: 'survey_submitted', 
                 timestamp: new Date().toISOString() 
             });
+            saveTestData();
             
             event.target.reset();
             showToast('🎉 Thank you for your feedback!', 2000);
@@ -1680,6 +1737,7 @@ ${generateRecommendations()}
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
+            updateTotal();
             updateAnalytics();
         });
     </script>
