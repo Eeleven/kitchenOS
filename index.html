@@ -744,8 +744,7 @@
                 <h3 style="text-align: center; margin: 50px 0 30px;">Step 2: Select App Categories & Individual Apps</h3>
                 
                 <div class="category-selector">
-                    <button class="category-btn active" onclick="showCategory('all', this)">All Apps</button>
-                    <button class="category-btn" onclick="showCategory('cooking', this)">🍳 Cooking</button>
+                    <button class="category-btn active" onclick="showCategory('cooking', this)">🍳 Cooking</button>
                     <button class="category-btn" onclick="showCategory('cleaning', this)">🧹 Cleaning</button>
                     <button class="category-btn" onclick="showCategory('baking', this)">🍰 Baking</button>
                 </div>
@@ -1180,7 +1179,7 @@
             configurations: [],
             surveys: [],
             appClicks: {},
-            categoryClicks: { all: 0, cooking: 0, cleaning: 0, baking: 0 },
+            categoryClicks: { cooking: 0, cleaning: 0, baking: 0 },
             userFlow: []
         };
 
@@ -1271,12 +1270,10 @@
         }
 
         function showCategory(category, buttonElement) {
-            // Update button states
             document.querySelectorAll('.category-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             
-            // If called from onclick, get the button element
             if (!buttonElement && event && event.target) {
                 buttonElement = event.target;
             }
@@ -1285,25 +1282,21 @@
                 buttonElement.classList.add('active');
             }
             
-            // Track category view
-            testData.categoryClicks[category]++;
+            if (testData.categoryClicks[category] !== undefined) {
+                testData.categoryClicks[category]++;
+            }
             testData.userFlow.push({ 
                 event: 'category_viewed', 
                 category: category,
                 timestamp: new Date().toISOString() 
             });
             
-            // Show/hide app grids
             document.querySelectorAll('.category-apps').forEach(grid => {
-                if (category === 'all') {
+                const gridCategory = grid.getAttribute('data-category');
+                if (gridCategory === category) {
                     grid.classList.remove('hidden');
                 } else {
-                    const gridCategory = grid.getAttribute('data-category');
-                    if (gridCategory === category) {
-                        grid.classList.remove('hidden');
-                    } else {
-                        grid.classList.add('hidden');
-                    }
+                    grid.classList.add('hidden');
                 }
             });
         }
