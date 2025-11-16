@@ -24,6 +24,16 @@
             padding: 0 20px;
         }
 
+        .bar-column {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            padding: 0 10px;
+        }
         /* Header */
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -58,10 +68,11 @@
             display: flex;
             justify-content: center;
             padding: 15px 0;
+            flex-wrap: wrap;
         }
 
         nav li {
-            margin: 0 25px;
+            margin: 0 20px;
         }
 
         nav a {
@@ -122,14 +133,16 @@
             margin-top: 30px;
         }
 
-        .hardware-options, .app-options {
+        .hardware-options {
             margin: 30px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
         }
 
         .option-card {
             background: #f8f9fa;
-            padding: 20px;
-            margin: 15px 0;
+            padding: 25px;
             border-radius: 10px;
             border: 3px solid transparent;
             cursor: pointer;
@@ -138,6 +151,8 @@
 
         .option-card:hover {
             border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
         }
 
         .option-card.selected {
@@ -147,13 +162,110 @@
 
         .option-card h4 {
             color: #667eea;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .appliance-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .appliance-list li {
+            margin: 8px 0;
+            color: #555;
+            font-size: 0.95em;
         }
 
         .price-tag {
-            font-size: 1.5em;
+            font-size: 1.8em;
             color: #27ae60;
             font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* App Categories */
+        .app-categories {
+            margin: 30px 0;
+        }
+
+        .category-selector {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .category-btn {
+            padding: 12px 30px;
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .category-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .category-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .app-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .app-card:hover {
+            transform: translateY(-3px);
+            border-color: #667eea;
+        }
+
+        .app-card.selected {
+            border-color: #27ae60;
+            background: #e8f5e9;
+        }
+
+        .app-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .app-price {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .app-category-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.75em;
+            margin-top: 8px;
         }
 
         .total-price {
@@ -166,51 +278,39 @@
         }
 
         .total-price h3 {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 10px;
         }
 
-        /* App Store */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+        .price-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+            flex-wrap: wrap;
         }
 
-        .app-card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
+        .price-item {
+            text-align: center;
+            min-width: 150px;
         }
 
-        .app-card:hover {
-            transform: translateY(-5px);
+        .price-item label {
+            display: block;
+            opacity: 1;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            white-space: nowrap;
         }
 
-        .app-icon {
-            font-size: 3em;
-            margin-bottom: 15px;
-        }
-
-        .app-price {
-            color: #27ae60;
+        .price-item span {
+            display: block;
+            font-size: 2em;
             font-weight: bold;
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-        .app-category {
-            display: inline-block;
-            padding: 5px 15px;
-            background: #667eea;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.85em;
-            margin-top: 10px;
+            margin-top: 8px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         /* Survey */
@@ -278,29 +378,99 @@
             transform: scale(1.05);
         }
 
-        /* Results Display */
-        .results {
+        /* Data Visualization */
+        .dashboard {
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
-            margin-top: 30px;
+            margin-top: 40px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
         .stat-box {
-            display: inline-block;
-            padding: 20px;
-            margin: 10px;
-            background: #e8eaf6;
-            border-radius: 10px;
-            min-width: 150px;
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
             text-align: center;
         }
 
         .stat-number {
-            font-size: 2em;
-            color: #667eea;
+            font-size: 2.5em;
             font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 250px;
+            margin-top: 20px;
+            padding: 30px 20px 0 20px;
+            position: relative;
+        }
+
+        .bar {
+            width: 60%;
+            margin: 0 auto;
+            background: linear-gradient(to top, #667eea, #764ba2);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: all 0.3s;
+            max-width: 80px;
+            min-height: 0;
+        }
+
+        .bar[data-count="0"] {
+            background: #e0e0e0;
+            opacity: 0.3;
+        }
+
+        .bar:not([data-count="0"]) {
+            min-height: 8px;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            transform: translateY(-3px);
+        }
+
+        .bar-label {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -30px;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
         }
 
         /* Animations */
@@ -334,6 +504,56 @@
             padding: 30px 0;
             margin-top: 60px;
         }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        .toast.removing {
+            animation: slideOut 0.3s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -350,6 +570,7 @@
             <li><a href="#configurator">Build Your Kitchen</a></li>
             <li><a href="#appstore">App Store</a></li>
             <li><a href="#survey">Share Your Opinion</a></li>
+            <li><a href="#analytics">Test Analytics</a></li>
         </ul>
     </nav>
 
@@ -387,99 +608,229 @@
         <div class="container">
             <h2>⚙️ Build Your Perfect Kitchen</h2>
             <div class="configurator">
-                <h3>Step 1: Choose Your Hardware</h3>
+                <h3 style="text-align: center; margin-bottom: 30px;">Step 1: Choose Your Hardware Bundle</h3>
                 <div class="hardware-options">
-                    <div class="option-card" onclick="selectHardware(this, 199)">
-                        <h4>Basic Smart Hub</h4>
-                        <p>Entry-level controller for simple cooking tasks</p>
-                        <p class="price-tag">€199</p>
+                    <div class="option-card" onclick="selectHardware(this, 'basic', 599)">
+                        <h4>🏠 Basic Starter Kit</h4>
+                        <ul class="appliance-list">
+                            <li>✓ Smart Cooking Hub (multi-cooker)</li>
+                            <li>✓ Connected Coffee Maker</li>
+                            <li>✓ Robotic Cleaning Arm</li>
+                            <li>✓ Central Control Tablet</li>
+                            <li>✓ 2-Year Warranty</li>
+                        </ul>
+                        <span class="price-tag">€599</span>
+                        <p style="margin-top: 10px; color: #27ae60; font-weight: 600;">Perfect for singles & couples</p>
                     </div>
-                    <div class="option-card" onclick="selectHardware(this, 399)">
-                        <h4>Pro Smart Hub</h4>
-                        <p>Advanced controller with multi-device support</p>
-                        <p class="price-tag">€399</p>
+                    <div class="option-card" onclick="selectHardware(this, 'pro', 1299)">
+                        <h4>⭐ Pro Family Bundle</h4>
+                        <ul class="appliance-list">
+                            <li>✓ Everything in Basic Kit</li>
+                            <li>✓ Smart Oven (bake, roast, steam)</li>
+                            <li>✓ Microwave with Sensor Cook</li>
+                            <li>✓ Air Fryer Station</li>
+                            <li>✓ Smart Dishwasher</li>
+                            <li>✓ Voice Assistant Module</li>
+                            <li>✓ 3-Year Warranty</li>
+                        </ul>
+                        <span class="price-tag">€1,299</span>
+                        <p style="margin-top: 10px; color: #27ae60; font-weight: 600;">Ideal for families of 3-5</p>
                     </div>
-                    <div class="option-card" onclick="selectHardware(this, 599)">
-                        <h4>Premium All-in-One</h4>
-                        <p>Complete system with integrated appliances</p>
-                        <p class="price-tag">€599</p>
+                    <div class="option-card" onclick="selectHardware(this, 'premium', 2499)">
+                        <h4>💎 Premium Complete System</h4>
+                        <ul class="appliance-list">
+                            <li>✓ Everything in Pro Bundle</li>
+                            <li>✓ Smart Refrigerator (camera, inventory)</li>
+                            <li>✓ Induction Cooktop (6 zones)</li>
+                            <li>✓ Mobile Robot Platform (delivery, prep assist)</li>
+                            <li>✓ Sous Vide Precision Cooker</li>
+                            <li>✓ Food Processor & Blender Station</li>
+                            <li>✓ 5-Year Premium Warranty</li>
+                        </ul>
+                        <span class="price-tag">€2,499</span>
+                        <p style="margin-top: 10px; color: #27ae60; font-weight: 600;">For cooking enthusiasts & large families</p>
                     </div>
                 </div>
 
-                <h3>Step 2: Add Apps (€1-€5 each)</h3>
-                <div class="app-options">
-                    <div class="option-card" onclick="selectApp(this, 2.99)">
-                        <h4>🍝 Pasta Perfect</h4>
-                        <p>Professional pasta cooking with 20+ recipes</p>
-                        <p class="price-tag">€2.99</p>
+                <h3 style="text-align: center; margin: 50px 0 30px;">Step 2: Select App Categories & Individual Apps</h3>
+                
+                <div class="category-selector">
+                    <button class="category-btn active" onclick="showCategory('all', this)">All Apps</button>
+                    <button class="category-btn" onclick="showCategory('cooking', this)">🍳 Cooking</button>
+                    <button class="category-btn" onclick="showCategory('cleaning', this)">🧹 Cleaning</button>
+                    <button class="category-btn" onclick="showCategory('baking', this)">🍰 Baking</button>
+                </div>
+
+                <!-- Cooking Apps -->
+                <div class="app-grid category-apps" data-category="cooking">
+                    <div class="app-card" onclick="selectApp(this, 'Italian Cuisine Master', 'cooking', 3.99)">
+                        <div class="app-icon">🇮🇹</div>
+                        <h4>Italian Cuisine Master</h4>
+                        <p>50+ authentic recipes: pasta, risotto, osso buco</p>
+                        <span class="app-category-tag">Cooking • Italian</span>
+                        <p class="app-price">€3.99</p>
                     </div>
-                    <div class="option-card" onclick="selectApp(this, 4.99)">
-                        <h4>🧹 Deep Clean Pro</h4>
-                        <p>Advanced cleaning schedules and detergent optimization</p>
-                        <p class="price-tag">€4.99</p>
+                    <div class="app-card" onclick="selectApp(this, 'Asian Wok Pro', 'cooking', 4.49)">
+                        <div class="app-icon">🇨🇳</div>
+                        <h4>Asian Wok Pro</h4>
+                        <p>Chinese, Thai, Vietnamese - 60+ stir-fry recipes</p>
+                        <span class="app-category-tag">Cooking • Asian</span>
+                        <p class="app-price">€4.49</p>
                     </div>
-                    <div class="option-card" onclick="selectApp(this, 1.99)">
-                        <h4>☕ Morning Brew</h4>
-                        <p>Wake up to perfect coffee every time</p>
-                        <p class="price-tag">€1.99</p>
+                    <div class="app-card" onclick="selectApp(this, 'French Bistro', 'cooking', 4.99)">
+                        <div class="app-icon">🇫🇷</div>
+                        <h4>French Bistro</h4>
+                        <p>Classic French cooking with sous vide techniques</p>
+                        <span class="app-category-tag">Cooking • French</span>
+                        <p class="app-price">€4.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Mexican Fiesta', 'cooking', 2.99)">
+                        <div class="app-icon">🇲🇽</div>
+                        <h4>Mexican Fiesta</h4>
+                        <p>Tacos, enchiladas, mole - authentic flavors</p>
+                        <span class="app-category-tag">Cooking • Mexican</span>
+                        <p class="app-price">€2.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Mediterranean Magic', 'cooking', 3.49)">
+                        <div class="app-icon">🌊</div>
+                        <h4>Mediterranean Magic</h4>
+                        <p>Healthy Greek, Turkish, Lebanese cuisine</p>
+                        <span class="app-category-tag">Cooking • Mediterranean</span>
+                        <p class="app-price">€3.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Indian Spice Route', 'cooking', 3.99)">
+                        <div class="app-icon">🇮🇳</div>
+                        <h4>Indian Spice Route</h4>
+                        <p>Curries, tandoori, biryani with spice optimizer</p>
+                        <span class="app-category-tag">Cooking • Indian</span>
+                        <p class="app-price">€3.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Meal Prep Master', 'cooking', 2.49)">
+                        <div class="app-icon">📦</div>
+                        <h4>Meal Prep Master</h4>
+                        <p>Weekly planning, batch cooking, portion control</p>
+                        <span class="app-category-tag">Cooking • Planning</span>
+                        <p class="app-price">€2.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Vegan Revolution', 'cooking', 3.49)">
+                        <div class="app-icon">🌱</div>
+                        <h4>Vegan Revolution</h4>
+                        <p>Plant-based proteins, dairy alternatives, nutrients</p>
+                        <span class="app-category-tag">Cooking • Vegan</span>
+                        <p class="app-price">€3.49</p>
+                    </div>
+                </div>
+
+                <!-- Cleaning Apps -->
+                <div class="app-grid category-apps hidden" data-category="cleaning">
+                    <div class="app-card" onclick="selectApp(this, 'Deep Clean Pro', 'cleaning', 4.99)">
+                        <div class="app-icon">✨</div>
+                        <h4>Deep Clean Pro</h4>
+                        <p>Advanced cleaning schedules & detergent optimization</p>
+                        <span class="app-category-tag">Cleaning • Advanced</span>
+                        <p class="app-price">€4.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Stain Eliminator', 'cleaning', 3.49)">
+                        <div class="app-icon">🎯</div>
+                        <h4>Stain Eliminator</h4>
+                        <p>Specialized cycles for wine, grease, blood stains</p>
+                        <span class="app-category-tag">Cleaning • Specialist</span>
+                        <p class="app-price">€3.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Eco Wash', 'cleaning', 2.49)">
+                        <div class="app-icon">🌿</div>
+                        <h4>Eco Wash</h4>
+                        <p>Water & energy saving modes, eco-friendly detergents</p>
+                        <span class="app-category-tag">Cleaning • Eco</span>
+                        <p class="app-price">€2.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Dishwasher AI', 'cleaning', 3.99)">
+                        <div class="app-icon">🍽️</div>
+                        <h4>Dishwasher AI</h4>
+                        <p>Smart load detection, optimal water temperature</p>
+                        <span class="app-category-tag">Cleaning • AI</span>
+                        <p class="app-price">€3.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Quick Clean 15', 'cleaning', 1.99)">
+                        <div class="app-icon">⚡</div>
+                        <h4>Quick Clean 15</h4>
+                        <p>15-minute express wash for lightly soiled items</p>
+                        <span class="app-category-tag">Cleaning • Express</span>
+                        <p class="app-price">€1.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Delicate Care', 'cleaning', 2.99)">
+                        <div class="app-icon">🧸</div>
+                        <h4>Delicate Care</h4>
+                        <p>Gentle cycles for silk, wool, baby clothes</p>
+                        <span class="app-category-tag">Cleaning • Gentle</span>
+                        <p class="app-price">€2.99</p>
+                    </div>
+                </div>
+
+                <!-- Baking Apps -->
+                <div class="app-grid category-apps hidden" data-category="baking">
+                    <div class="app-card" onclick="selectApp(this, 'Artisan Bread Baker', 'baking', 4.49)">
+                        <div class="app-icon">🥖</div>
+                        <h4>Artisan Bread Baker</h4>
+                        <p>Sourdough, baguette, ciabatta - perfect crust</p>
+                        <span class="app-category-tag">Baking • Bread</span>
+                        <p class="app-price">€4.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Patisserie Master', 'baking', 5.49)">
+                        <div class="app-icon">🎂</div>
+                        <h4>Patisserie Master</h4>
+                        <p>French pastries, éclairs, macarons, tarts</p>
+                        <span class="app-category-tag">Baking • Pastry</span>
+                        <p class="app-price">€5.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Cookie Creator', 'baking', 2.99)">
+                        <div class="app-icon">🍪</div>
+                        <h4>Cookie Creator</h4>
+                        <p>50+ cookie recipes with perfect bake detection</p>
+                        <span class="app-category-tag">Baking • Cookies</span>
+                        <p class="app-price">€2.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Cake Decorator Pro', 'baking', 3.99)">
+                        <div class="app-icon">🎂</div>
+                        <h4>Cake Decorator Pro</h4>
+                        <p>Layer cakes, cupcakes, frosting techniques</p>
+                        <span class="app-category-tag">Baking • Cakes</span>
+                        <p class="app-price">€3.99</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Pizza Perfection', 'baking', 3.49)">
+                        <div class="app-icon">🍕</div>
+                        <h4>Pizza Perfection</h4>
+                        <p>Neapolitan, NY-style, deep dish - perfect crust</p>
+                        <span class="app-category-tag">Baking • Pizza</span>
+                        <p class="app-price">€3.49</p>
+                    </div>
+                    <div class="app-card" onclick="selectApp(this, 'Gluten-Free Baking', 'baking', 3.99)">
+                        <div class="app-icon">🌾</div>
+                        <h4>Gluten-Free Baking</h4>
+                        <p>Breads, cakes, cookies without gluten</p>
+                        <span class="app-category-tag">Baking • Special Diet</span>
+                        <p class="app-price">€3.99</p>
                     </div>
                 </div>
 
                 <div class="total-price">
-                    <h3>Your Total Investment</h3>
-                    <p style="font-size: 3em; margin: 20px 0;" id="totalPrice">€0</p>
-                    <button onclick="recordConfiguration()">I'm Interested in This Setup!</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="appstore" style="background: white;">
-        <div class="container">
-            <h2>🏪 KitchenOS App Store</h2>
-            <p style="text-align: center; margin-bottom: 30px;">Specialized apps created by developers worldwide - only pay for what you need</p>
-            <div class="app-grid">
-                <div class="app-card" onclick="trackAppClick('Sous Vide Master')">
-                    <div class="app-icon">🥩</div>
-                    <h4>Sous Vide Master</h4>
-                    <p>Restaurant-quality precision cooking</p>
-                    <span class="app-category">Cooking</span>
-                    <p class="app-price">€3.99</p>
-                </div>
-                <div class="app-card" onclick="trackAppClick('Dishwasher AI')">
-                    <div class="app-icon">🍽️</div>
-                    <h4>Dishwasher AI</h4>
-                    <p>Smart load detection and eco mode</p>
-                    <span class="app-category">Cleaning</span>
-                    <p class="app-price">€2.49</p>
-                </div>
-                <div class="app-card" onclick="trackAppClick('Baking Master')">
-                    <div class="app-icon">🍰</div>
-                    <h4>Baking Master</h4>
-                    <p>Perfect bread, cakes, and pastries</p>
-                    <span class="app-category">Cooking</span>
-                    <p class="app-price">€4.49</p>
-                </div>
-                <div class="app-card" onclick="trackAppClick('Energy Optimizer')">
-                    <div class="app-icon">⚡</div>
-                    <h4>Energy Optimizer</h4>
-                    <p>Reduce electricity costs by 30%</p>
-                    <span class="app-category">Utility</span>
-                    <p class="app-price">€1.99</p>
-                </div>
-                <div class="app-card" onclick="trackAppClick('Meal Planner Pro')">
-                    <div class="app-icon">📅</div>
-                    <h4>Meal Planner Pro</h4>
-                    <p>Weekly meal planning with auto-cook</p>
-                    <span class="app-category">Cooking</span>
-                    <p class="app-price">€2.99</p>
-                </div>
-                <div class="app-card" onclick="trackAppClick('Stain Remover')">
-                    <div class="app-icon">✨</div>
-                    <h4>Stain Remover</h4>
-                    <p>Specialized cycles for tough stains</p>
-                    <span class="app-category">Cleaning</span>
-                    <p class="app-price">€3.49</p>
+                    <h3>Your Customized KitchenOS</h3>
+                    <div class="price-breakdown">
+                        <div class="price-item">
+                            <label>Hardware</label>
+                            <span id="hardwarePrice">€0</span>
+                        </div>
+                        <div class="price-item">
+                            <label>Apps </label>
+                            <span id="appCount">0</span>
+                            <span id="appPrice">€0</span>
+                        </div>
+                        <div class="price-item">
+                            <label>Total Investment</label>
+                            <span id="totalPrice">€0</span>
+                        </div>
+                    </div>
+                    <button onclick="recordConfiguration()">💡 I'm Interested in This Setup!</button>
                 </div>
             </div>
         </div>
@@ -527,15 +878,15 @@
                         <label>How much would you spend on smart kitchen hardware?</label>
                         <select required name="hardware_budget">
                             <option value="">Select...</option>
-                            <option value="<200">Under €200</option>
-                            <option value="200-400">€200-€400</option>
-                            <option value="400-600">€400-€600</option>
-                            <option value="600+">€600+</option>
+                            <option value="<400">Under €400</option>
+                            <option value="400-800">€400-€800</option>
+                            <option value="800-1300">€800-€1,300</option>
+                            <option value="1300+">€1,300+</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Would you pay €1-€5 for specialized cooking/cleaning apps?</label>
+                        <label>Would you pay €2-€5 for specialized cooking/cleaning apps?</label>
                         <div class="radio-group">
                             <div class="radio-option">
                                 <input type="radio" name="app_willingness" value="yes" required>
@@ -553,11 +904,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label>Which apps would you most likely purchase? (Select all that apply)</label>
+                        <label>Which hardware bundle appeals to you most?</label>
+                        <select required name="preferred_bundle">
+                            <option value="">Select...</option>
+                            <option value="basic">Basic Starter (€599)</option>
+                            <option value="pro">Pro Family (€1,299)</option>
+                            <option value="premium">Premium Complete (€2,499)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Which app categories interest you most? (Select all that apply)</label>
                         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
-                            <label><input type="checkbox" name="app_interest" value="cooking"> Professional Cooking</label>
+                            <label><input type="checkbox" name="app_interest" value="cooking"> International Cooking</label>
                             <label><input type="checkbox" name="app_interest" value="cleaning"> Smart Cleaning</label>
-                            <label><input type="checkbox" name="app_interest" value="energy"> Energy Saving</label>
+                            <label><input type="checkbox" name="app_interest" value="baking"> Baking & Pastries</label>
                             <label><input type="checkbox" name="app_interest" value="planning"> Meal Planning</label>
                         </div>
                     </div>
@@ -575,26 +936,135 @@
                     <button type="submit">Submit Feedback</button>
                 </form>
             </div>
+        </div>
+    </section>
 
-            <div class="results" id="results" style="display: none;">
-                <h3 style="text-align: center; margin-bottom: 20px;">📊 Live Test Results</h3>
-                <div style="text-align: center;">
+    <section id="analytics">
+        <div class="container">
+            <h2>📊 Real-Time Test Analytics</h2>
+            <div class="dashboard">
+                <h3 style="text-align: center; margin-bottom: 30px;">Key Performance Indicators</h3>
+                
+                <div class="stats-grid">
                     <div class="stat-box">
                         <div class="stat-number" id="totalResponses">0</div>
-                        <div>Total Responses</div>
+                        <div class="stat-label">Total Test Participants</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="configCount">0</div>
+                        <div class="stat-label">Configurations Built</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number" id="avgTotalPrice">€0</div>
+                        <div class="stat-label">Average Total Spend</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-number" id="appWillingPercent">0%</div>
-                        <div>Willing to Pay for Apps</div>
+                        <div class="stat-label">Willing to Pay for Apps</div>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-number" id="avgBudget">€0</div>
-                        <div>Avg Hardware Budget</div>
+                </div>
+
+                <div class="chart-container">
+                    <h4 style="text-align: center; margin-bottom: 20px;">Hardware Bundle Popularity</h4>
+                    <div class="bar-chart" id="hardwareChart">
+                        <div class="bar-column">
+                            <div class="bar" id="barBasic" style="height: 0%;">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Basic<br>€599</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barPro" style="height: 0%;">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Pro<br>€1,299</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barPremium" style="height: 0%;">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Premium<br>€2,499</div>
+                        </div>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-number" id="priceComplaint">0%</div>
-                        <div>Price is Main Issue</div>
+                </div>
+
+                <div class="chart-container">
+                    <h4 style="text-align: center; margin-bottom: 20px;">Most Popular App Categories</h4>
+                    <div class="bar-chart" id="categoryChart">
+                        <div class="bar-column">
+                            <div class="bar" id="barCooking" style="height: 0%; background: linear-gradient(to top, #f39c12, #e74c3c);">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Cooking Apps</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barCleaning" style="height: 0%; background: linear-gradient(to top, #3498db, #2980b9);">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Cleaning Apps</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barBaking" style="height: 0%; background: linear-gradient(to top, #e67e22, #d35400);">
+                                <div class="bar-value">0</div>
+                            </div>
+                            <div class="bar-label">Baking Apps</div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="chart-container">
+                    <h4 style="text-align: center; margin-bottom: 20px;">User Pain Points Distribution</h4>
+                    <div class="bar-chart" id="painChart">
+                        <div class="bar-column">
+                            <div class="bar" id="barPrice" style="height: 0%; background: linear-gradient(to top, #e74c3c, #c0392b);">
+                                <div class="bar-value">0%</div>
+                            </div>
+                            <div class="bar-label">Price</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barFeatures" style="height: 0%; background: linear-gradient(to top, #9b59b6, #8e44ad);">
+                                <div class="bar-value">0%</div>
+                            </div>
+                            <div class="bar-label">Features</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barLocked" style="height: 0%; background: linear-gradient(to top, #e67e22, #d35400);">
+                                <div class="bar-value">0%</div>
+                            </div>
+                            <div class="bar-label">Locked</div>
+                        </div>
+                        <div class="bar-column">
+                            <div class="bar" id="barComplex" style="height: 0%; background: linear-gradient(to top, #95a5a6, #7f8c8d);">
+                                <div class="bar-value">0%</div>
+                            </div>
+                            <div class="bar-label">Complex</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid" style="margin-top: 40px;">
+                    <div class="stat-box" style="background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);">
+                        <div class="stat-number" id="avgApps">0</div>
+                        <div class="stat-label">Avg Apps per Config</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">
+                        <div class="stat-number" id="topApp">-</div>
+                        <div class="stat-label">Most Popular App</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                        <div class="stat-number" id="conversionRate">0%</div>
+                        <div class="stat-label">Config→Survey Rate</div>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);">
+                        <div class="stat-number" id="totalClicks">0</div>
+                        <div class="stat-label">Total App Clicks</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <button onclick="downloadTestData()" style="margin-right: 15px;">📥 Download Full Data (JSON)</button>
+                    <button onclick="downloadSummaryReport()">📊 Download Summary Report (TXT)</button>
+                    <button onclick="updateAnalytics(); alert('Analytics refreshed! Check console for debug info.');" style="margin-left: 15px; background: linear-gradient(135deg, #27ae60 0%, #229954 100%);">🔄 Refresh Analytics</button>
                 </div>
             </div>
         </div>
@@ -604,65 +1074,180 @@
         <div class="container">
             <p>© 2024 KitchenOS - Prototype Test Website</p>
             <p style="margin-top: 10px; opacity: 0.7;">This is a concept test. No actual products are for sale.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">🔬 Prototype Testing - Data collected for research purposes only</p>
         </div>
     </footer>
 
     <script>
         let testData = {
-            hardware: 0,
-            apps: [],
+            sessions: {
+                startTime: new Date().toISOString(),
+                pageViews: 0,
+                uniqueVisitors: 0
+            },
+            hardware: null,
+            hardwareName: null,
+            selectedApps: [],
             configurations: [],
             surveys: [],
-            appClicks: {}
+            appClicks: {},
+            categoryClicks: { all: 0, cooking: 0, cleaning: 0, baking: 0 },
+            userFlow: []
         };
 
-        function selectHardware(element, price) {
+        // Track page load
+        window.addEventListener('load', () => {
+            testData.sessions.pageViews++;
+            testData.userFlow.push({ event: 'page_load', timestamp: new Date().toISOString() });
+        });
+
+        // Toast notification function
+        function showToast(message, duration = 3000) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('removing');
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, duration);
+        }
+
+        function selectHardware(element, name, price) {
             document.querySelectorAll('.hardware-options .option-card').forEach(card => {
                 card.classList.remove('selected');
             });
             element.classList.add('selected');
             testData.hardware = price;
+            testData.hardwareName = name;
+            testData.userFlow.push({ 
+                event: 'hardware_selected', 
+                hardware: name, 
+                price: price,
+                timestamp: new Date().toISOString() 
+            });
             updateTotal();
+            showToast(`✓ ${name.charAt(0).toUpperCase() + name.slice(1)} bundle selected!`);
         }
 
-        function selectApp(element, price) {
+        function selectApp(element, appName, category, price) {
+            const isCurrentlySelected = element.classList.contains('selected');
             element.classList.toggle('selected');
-            const index = testData.apps.indexOf(price);
-            if (index > -1) {
-                testData.apps.splice(index, 1);
+            
+            const appIndex = testData.selectedApps.findIndex(app => app.name === appName);
+            
+            if (isCurrentlySelected) {
+                // Deselecting
+                if (appIndex > -1) {
+                    testData.selectedApps.splice(appIndex, 1);
+                }
+                testData.userFlow.push({ 
+                    event: 'app_deselected', 
+                    app: appName, 
+                    category: category,
+                    timestamp: new Date().toISOString() 
+                });
             } else {
-                testData.apps.push(price);
+                // Selecting
+                if (appIndex === -1) {
+                    testData.selectedApps.push({ name: appName, category: category, price: price });
+                }
+                if (!testData.appClicks[appName]) {
+                    testData.appClicks[appName] = 0;
+                }
+                testData.appClicks[appName]++;
+                testData.userFlow.push({ 
+                    event: 'app_selected', 
+                    app: appName, 
+                    category: category, 
+                    price: price,
+                    timestamp: new Date().toISOString() 
+                });
             }
             updateTotal();
         }
 
         function updateTotal() {
-            const appTotal = testData.apps.reduce((sum, price) => sum + price, 0);
-            const total = testData.hardware + appTotal;
+            const hardwarePrice = testData.hardware || 0;
+            const appTotal = testData.selectedApps.reduce((sum, app) => sum + app.price, 0);
+            const total = hardwarePrice + appTotal;
+            
+            document.getElementById('hardwarePrice').textContent = '€' + hardwarePrice;
+            document.getElementById('appPrice').textContent = '€' + appTotal.toFixed(2);
+            document.getElementById('appCount').textContent = testData.selectedApps.length;
             document.getElementById('totalPrice').textContent = '€' + total.toFixed(2);
         }
 
-        function recordConfiguration() {
-            if (testData.hardware === 0) {
-                alert('Please select hardware first!');
-                return;
+        function showCategory(category, buttonElement) {
+            // Update button states
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // If called from onclick, get the button element
+            if (!buttonElement && event && event.target) {
+                buttonElement = event.target;
             }
-            const config = {
-                hardware: testData.hardware,
-                apps: [...testData.apps],
-                total: testData.hardware + testData.apps.reduce((sum, price) => sum + price, 0),
-                timestamp: new Date().toISOString()
-            };
-            testData.configurations.push(config);
-            alert('Thank you! Your configuration has been recorded. Please scroll down to share more feedback in the survey.');
-            document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
+            
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+            
+            // Track category view
+            testData.categoryClicks[category]++;
+            testData.userFlow.push({ 
+                event: 'category_viewed', 
+                category: category,
+                timestamp: new Date().toISOString() 
+            });
+            
+            // Show/hide app grids
+            document.querySelectorAll('.category-apps').forEach(grid => {
+                if (category === 'all') {
+                    grid.classList.remove('hidden');
+                } else {
+                    const gridCategory = grid.getAttribute('data-category');
+                    if (gridCategory === category) {
+                        grid.classList.remove('hidden');
+                    } else {
+                        grid.classList.add('hidden');
+                    }
+                }
+            });
         }
 
-        function trackAppClick(appName) {
-            if (!testData.appClicks[appName]) {
-                testData.appClicks[appName] = 0;
+        function recordConfiguration() {
+            if (!testData.hardware) {
+                showToast('⚠️ Please select a hardware bundle first!');
+                document.getElementById('configurator').scrollIntoView({ behavior: 'smooth' });
+                return;
             }
-            testData.appClicks[appName]++;
+            
+            const config = {
+                hardware: testData.hardwareName,
+                hardwarePrice: testData.hardware,
+                apps: [...testData.selectedApps],
+                totalApps: testData.selectedApps.length,
+                appTotal: testData.selectedApps.reduce((sum, app) => sum + app.price, 0),
+                totalPrice: testData.hardware + testData.selectedApps.reduce((sum, app) => sum + app.price, 0),
+                timestamp: new Date().toISOString()
+            };
+            
+            testData.configurations.push(config);
+            testData.userFlow.push({ 
+                event: 'configuration_saved', 
+                config: config,
+                timestamp: new Date().toISOString() 
+            });
+            
+            updateAnalytics();
+            showToast('✅ Configuration saved!', 2000);
+            setTimeout(() => {
+                document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
         }
 
         function submitSurvey(event) {
@@ -673,66 +1258,307 @@
                 frustration: formData.get('frustration'),
                 hardware_budget: formData.get('hardware_budget'),
                 app_willingness: formData.get('app_willingness'),
+                preferred_bundle: formData.get('preferred_bundle'),
                 app_interest: formData.getAll('app_interest'),
                 comments: formData.get('comments'),
                 email: formData.get('email'),
                 timestamp: new Date().toISOString()
             };
             testData.surveys.push(surveyResponse);
+            testData.userFlow.push({ 
+                event: 'survey_submitted', 
+                timestamp: new Date().toISOString() 
+            });
             
             event.target.reset();
-            alert('Thank you for your feedback! 🎉');
+            showToast('🎉 Thank you for your feedback!', 2000);
             
-            updateResults();
-            document.getElementById('results').style.display = 'block';
-            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            updateAnalytics();
+            setTimeout(() => {
+                document.getElementById('analytics').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
         }
 
-        function updateResults() {
-            const total = testData.surveys.length;
-            document.getElementById('totalResponses').textContent = total;
-
-            if (total > 0) {
-                const willing = testData.surveys.filter(s => s.app_willingness === 'yes').length;
-                document.getElementById('appWillingPercent').textContent = Math.round((willing / total) * 100) + '%';
-
-                const priceComplaint = testData.surveys.filter(s => s.frustration === 'price').length;
-                document.getElementById('priceComplaint').textContent = Math.round((priceComplaint / total) * 100) + '%';
-
-                const budgets = testData.surveys.map(s => {
-                    const b = s.hardware_budget;
-                    if (b === '<200') return 150;
-                    if (b === '200-400') return 300;
-                    if (b === '400-600') return 500;
-                    if (b === '600+') return 700;
-                    return 0;
-                });
-                const avgBudget = budgets.reduce((a, b) => a + b, 0) / budgets.length;
-                document.getElementById('avgBudget').textContent = '€' + Math.round(avgBudget);
+        function updateAnalytics() {
+            const configCount = testData.configurations.length;
+            const surveyCount = testData.surveys.length;
+            
+            // Update KPIs
+            document.getElementById('totalResponses').textContent = surveyCount;
+            document.getElementById('configCount').textContent = configCount;
+            
+            // Hardware bundle popularity - Always update, even if no data
+            const basicCount = testData.configurations.filter(c => c.hardware === 'basic').length;
+            const proCount = testData.configurations.filter(c => c.hardware === 'pro').length;
+            const premiumCount = testData.configurations.filter(c => c.hardware === 'premium').length;
+            const maxCount = Math.max(basicCount, proCount, premiumCount, 1);
+            
+            // Calculate heights - properly scale with data
+            const basicHeight = basicCount > 0 ? (basicCount / maxCount * 100) : 0;
+            const proHeight = proCount > 0 ? (proCount / maxCount * 100) : 0;
+            const premiumHeight = premiumCount > 0 ? (premiumCount / maxCount * 100) : 0;
+            
+            console.log('Hardware counts:', {basicCount, proCount, premiumCount, maxCount});
+            console.log('Hardware heights:', {basicHeight, proHeight, premiumHeight});
+            
+            const barBasic = document.getElementById('barBasic');
+            const barPro = document.getElementById('barPro');
+            const barPremium = document.getElementById('barPremium');
+            
+            if (barBasic && barPro && barPremium) {
+                barBasic.style.height = basicHeight + '%';
+                barBasic.setAttribute('data-count', basicCount);
+                barPro.style.height = proHeight + '%';
+                barPro.setAttribute('data-count', proCount);
+                barPremium.style.height = premiumHeight + '%';
+                barPremium.setAttribute('data-count', premiumCount);
+                barBasic.querySelector('.bar-value').textContent = basicCount;
+                barPro.querySelector('.bar-value').textContent = proCount;
+                barPremium.querySelector('.bar-value').textContent = premiumCount;
+                console.log('✓ Hardware bars updated');
+            } else {
+                console.error('Hardware bar elements not found!');
             }
+            
+            // App category popularity - Always update
+            const cookingApps = testData.configurations.reduce((sum, c) => 
+                sum + c.apps.filter(a => a.category === 'cooking').length, 0);
+            const cleaningApps = testData.configurations.reduce((sum, c) => 
+                sum + c.apps.filter(a => a.category === 'cleaning').length, 0);
+            const bakingApps = testData.configurations.reduce((sum, c) => 
+                sum + c.apps.filter(a => a.category === 'baking').length, 0);
+            const maxApps = Math.max(cookingApps, cleaningApps, bakingApps, 1);
+            
+            const cookingHeight = cookingApps > 0 ? (cookingApps / maxApps * 100) : 0;
+            const cleaningHeight = cleaningApps > 0 ? (cleaningApps / maxApps * 100) : 0;
+            const bakingHeight = bakingApps > 0 ? (bakingApps / maxApps * 100) : 0;
+            
+            console.log('App counts:', {cookingApps, cleaningApps, bakingApps, maxApps});
+            console.log('App heights:', {cookingHeight, cleaningHeight, bakingHeight});
+            
+            const barCooking = document.getElementById('barCooking');
+            const barCleaning = document.getElementById('barCleaning');
+            const barBaking = document.getElementById('barBaking');
+            
+            if (barCooking && barCleaning && barBaking) {
+                barCooking.style.height = cookingHeight + '%';
+                barCooking.setAttribute('data-count', cookingApps);
+                barCleaning.style.height = cleaningHeight + '%';
+                barCleaning.setAttribute('data-count', cleaningApps);
+                barBaking.style.height = bakingHeight + '%';
+                barBaking.setAttribute('data-count', bakingApps);
+                barCooking.querySelector('.bar-value').textContent = cookingApps;
+                barCleaning.querySelector('.bar-value').textContent = cleaningApps;
+                barBaking.querySelector('.bar-value').textContent = bakingApps;
+                console.log('✓ App category bars updated');
+            } else {
+                console.error('App category bar elements not found!');
+            }
+            
+            // Other KPIs that depend on config count
+            if (configCount > 0) {
+                const avgTotal = testData.configurations.reduce((sum, c) => sum + c.totalPrice, 0) / configCount;
+                document.getElementById('avgTotalPrice').textContent = '€' + Math.round(avgTotal);
+                
+                const avgApps = testData.configurations.reduce((sum, c) => sum + c.totalApps, 0) / configCount;
+                document.getElementById('avgApps').textContent = avgApps.toFixed(1);
+            }
+            
+            if (surveyCount > 0) {
+                const willing = testData.surveys.filter(s => s.app_willingness === 'yes').length;
+                document.getElementById('appWillingPercent').textContent = Math.round((willing / surveyCount) * 100) + '%';
+                
+                // Pain points distribution
+                const painPoints = { price: 0, features: 0, locked: 0, complex: 0 };
+                testData.surveys.forEach(s => {
+                    if (painPoints[s.frustration] !== undefined) {
+                        painPoints[s.frustration]++;
+                    }
+                });
+                
+                Object.keys(painPoints).forEach(point => {
+                    const count = painPoints[point];
+                    const percentage = Math.round((count / surveyCount) * 100);
+                    const barId = 'bar' + point.charAt(0).toUpperCase() + point.slice(1);
+                    const barElement = document.getElementById(barId);
+                    if (barElement) {
+                        barElement.style.height = percentage + '%';
+                        barElement.setAttribute('data-count', count);
+                        barElement.querySelector('.bar-value').textContent = percentage + '%';
+                    }
+                });
+                console.log('✓ Pain points bars updated');
+            }
+            
+            // Top app
+            let topApp = '-';
+            let maxClicks = 0;
+            Object.keys(testData.appClicks).forEach(app => {
+                if (testData.appClicks[app] > maxClicks) {
+                    maxClicks = testData.appClicks[app];
+                    topApp = app;
+                }
+            });
+            document.getElementById('topApp').textContent = topApp.length > 15 ? topApp.substring(0, 15) + '...' : topApp;
+            
+            // Conversion rate
+            if (configCount > 0) {
+                const convRate = Math.round((surveyCount / configCount) * 100);
+                document.getElementById('conversionRate').textContent = convRate + '%';
+            }
+            
+            // Total clicks
+            const totalClicks = Object.values(testData.appClicks).reduce((sum, val) => sum + val, 0);
+            document.getElementById('totalClicks').textContent = totalClicks;
         }
 
-        // Download test data
         function downloadTestData() {
             const dataStr = JSON.stringify(testData, null, 2);
             const dataBlob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = 'kitchenos_test_data.json';
+            const timestamp = new Date().toISOString().split('T')[0];
+            link.download = `kitchenos_test_data_${timestamp}.json`;
             link.click();
+            showToast('📥 Data downloaded!');
         }
 
-        // Add download button at the end
-        window.addEventListener('load', () => {
-            const downloadBtn = document.createElement('button');
-            downloadBtn.textContent = '📥 Download Test Data';
-            downloadBtn.style.position = 'fixed';
-            downloadBtn.style.bottom = '20px';
-            downloadBtn.style.right = '20px';
-            downloadBtn.style.zIndex = '1000';
-            downloadBtn.onclick = downloadTestData;
-            document.body.appendChild(downloadBtn);
+        function downloadSummaryReport() {
+            const report = generateSummaryReport();
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            const timestamp = new Date().toISOString().split('T')[0];
+            link.download = `kitchenos_summary_${timestamp}.txt`;
+            link.click();
+            showToast('📊 Report downloaded!');
+        }
+
+        function generateSummaryReport() {
+            const configCount = testData.configurations.length;
+            const surveyCount = testData.surveys.length;
+            
+            let report = `========================================
+KITCHENOS PROTOTYPE TEST SUMMARY REPORT
+Generated: ${new Date().toLocaleString()}
+========================================
+
+KEY FINDINGS:
+--------------
+
+ASSUMPTION 1: Young homeowners are frustrated by high costs
+${surveyCount > 0 ? `✓ ${testData.surveys.filter(s => s.frustration === 'price').length} of ${surveyCount} (${Math.round((testData.surveys.filter(s => s.frustration === 'price').length / surveyCount) * 100)}%) cited price as main frustration` : '✗ No data yet'}
+${surveyCount > 0 ? `✓ Most popular hardware bundle: ${getMostPopularHardware()}` : ''}
+
+ASSUMPTION 2: Users willing to pay small fees for specialized apps
+${surveyCount > 0 ? `✓ ${testData.surveys.filter(s => s.app_willingness === 'yes').length} of ${surveyCount} (${Math.round((testData.surveys.filter(s => s.app_willingness === 'yes').length / surveyCount) * 100)}%) said "Yes, definitely"` : '✗ No data yet'}
+${configCount > 0 ? `✓ Average apps per configuration: ${(testData.configurations.reduce((sum, c) => sum + c.totalApps, 0) / configCount).toFixed(1)}` : ''}
+
+========================================
+QUANTITATIVE DATA:
+--------------
+
+Total Participants: ${surveyCount}
+Configurations Built: ${configCount}
+Average Total Investment: €${configCount > 0 ? Math.round(testData.configurations.reduce((sum, c) => sum + c.totalPrice, 0) / configCount) : 0}
+Average Apps Purchased: ${configCount > 0 ? (testData.configurations.reduce((sum, c) => sum + c.totalApps, 0) / configCount).toFixed(1) : 0}
+
+Hardware Bundle Distribution:
+- Basic (€399): ${testData.configurations.filter(c => c.hardware === 'basic').length} selections
+- Pro (€799): ${testData.configurations.filter(c => c.hardware === 'pro').length} selections
+- Premium (€1,299): ${testData.configurations.filter(c => c.hardware === 'premium').length} selections
+
+App Category Popularity:
+- Cooking: ${testData.configurations.reduce((sum, c) => sum + c.apps.filter(a => a.category === 'cooking').length, 0)} apps
+- Cleaning: ${testData.configurations.reduce((sum, c) => sum + c.apps.filter(a => a.category === 'cleaning').length, 0)} apps
+- Baking: ${testData.configurations.reduce((sum, c) => sum + c.apps.filter(a => a.category === 'baking').length, 0)} apps
+
+========================================
+TOP APPS (by selection frequency):
+--------------
+${getTopApps()}
+
+========================================
+USER PAIN POINTS:
+--------------
+${surveyCount > 0 ? getPainPointsBreakdown() : 'No survey data collected yet'}
+
+========================================
+RECOMMENDATIONS:
+--------------
+
+${generateRecommendations()}
+
+========================================
+`;
+            return report;
+        }
+
+        function getMostPopularHardware() {
+            const bundles = { basic: 0, pro: 0, premium: 0 };
+            testData.configurations.forEach(c => {
+                if (bundles[c.hardware] !== undefined) bundles[c.hardware]++;
+            });
+            const max = Math.max(...Object.values(bundles));
+            return Object.keys(bundles).find(key => bundles[key] === max) || 'N/A';
+        }
+
+        function getTopApps() {
+            const sorted = Object.entries(testData.appClicks).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            return sorted.length > 0 ? sorted.map((item, i) => `${i + 1}. ${item[0]}: ${item[1]} clicks`).join('\n') : 'No app data yet';
+        }
+
+        function getPainPointsBreakdown() {
+            const total = testData.surveys.length;
+            const painPoints = { price: 0, features: 0, locked: 0, complex: 0 };
+            testData.surveys.forEach(s => {
+                if (painPoints[s.frustration] !== undefined) painPoints[s.frustration]++;
+            });
+            return Object.entries(painPoints).map(([key, val]) => 
+                `- ${key.charAt(0).toUpperCase() + key.slice(1)}: ${val} (${Math.round((val / total) * 100)}%)`
+            ).join('\n');
+        }
+
+        function generateRecommendations() {
+            const surveyCount = testData.surveys.length;
+            if (surveyCount < 10) {
+                return `• Collect more data (target: 50-100 responses)
+• Share test link with target demographic (25-35 year olds)
+• Consider running paid ads for faster data collection`;
+            }
+            
+            const willingPercent = Math.round((testData.surveys.filter(s => s.app_willingness === 'yes').length / surveyCount) * 100);
+            const priceComplaint = Math.round((testData.surveys.filter(s => s.frustration === 'price').length / surveyCount) * 100);
+            
+            let recs = [];
+            
+            if (priceComplaint >= 60) {
+                recs.push('✓ VALIDATED: Price is indeed a major barrier - proceed with modular pricing strategy');
+            } else if (priceComplaint < 40) {
+                recs.push('⚠ ADJUST: Price may not be the main issue - investigate other pain points');
+            }
+            
+            if (willingPercent >= 40) {
+                recs.push('✓ VALIDATED: App store model viable - users willing to pay for specialized features');
+            } else if (willingPercent < 30) {
+                recs.push('⚠ ADJUST: Reconsider pricing model - perhaps one-time purchase with optional premium apps');
+            }
+            
+            const avgApps = testData.configurations.length > 0 ? 
+                (testData.configurations.reduce((sum, c) => sum + c.totalApps, 0) / testData.configurations.length) : 0;
+            
+            if (avgApps >= 3) {
+                recs.push('✓ Strong interest in app ecosystem - consider app bundles/subscriptions');
+            }
+            
+            return recs.join('\n• ');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAnalytics();
         });
     </script>
 </body>
